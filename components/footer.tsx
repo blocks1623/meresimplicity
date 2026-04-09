@@ -1,24 +1,25 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-card">
-      <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-4">
+    <footer className="border-t border-border bg-background">
+      <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
+        <div className="grid gap-12 md:grid-cols-4">
           {/* Brand */}
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-3">
-              <div className="relative h-10 w-10">
+              <div className="relative h-8 w-8">
                 <Image
                   src="/images/logo.png"
                   alt="Meresimplicity Logo"
                   fill
-                  className="object-contain brightness-0 invert"
+                  className="object-contain"
                 />
               </div>
-              <span className="text-xl font-semibold text-foreground tracking-tight">Meresimplicity</span>
+              <span className="text-lg font-semibold text-foreground tracking-tight">Meresimplicity</span>
             </Link>
             <p className="mt-4 max-w-sm text-sm text-muted-foreground">
               A Venture Studio & Digital Engineering Firm. We engineer growth, we don&apos;t just design it. 
@@ -28,8 +29,11 @@ export function Footer() {
               Founded by Modipa Kgothatso Bonny - IE Specialist & Python Developer
             </p>
             <div className="mt-6">
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-                Book Consultation
+              <Button asChild className="bg-foreground text-background hover:bg-foreground/90 rounded-full">
+                <Link href="https://cal.com/bonny-cfb1wp" target="_blank" rel="noopener noreferrer">
+                  Book Consultation
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
               </Button>
             </div>
           </div>
@@ -90,7 +94,7 @@ export function Footer() {
         
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Meresimplicity. All rights reserved.
+            {new Date().getFullYear()} Meresimplicity. All rights reserved.
           </p>
           <div className="flex gap-6">
             <Link href="#" className="text-sm text-muted-foreground transition-colors hover:text-foreground">

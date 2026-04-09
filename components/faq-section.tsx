@@ -1,5 +1,7 @@
 "use client"
 
+import { useRef } from "react"
+import { motion, useInView } from "framer-motion"
 import {
   Accordion,
   AccordionContent,
@@ -35,19 +37,37 @@ const faqs = [
 ]
 
 export function FAQSection() {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
   return (
-    <section id="faq" className="py-20 lg:py-32 bg-card/50">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto mb-16 max-w-2xl text-center">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary">
-            Frequently asked questions
-          </p>
-          <h2 className="text-balance text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+    <section ref={ref} id="faq" className="py-20 lg:py-32">
+      <div className="mx-auto max-w-6xl px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <motion.span 
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center rounded-full border border-border bg-background px-4 py-1.5 text-sm text-muted-foreground mb-6"
+          >
+            FAQ
+          </motion.span>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-3xl sm:text-4xl font-normal text-foreground font-serif text-balance"
+          >
             Common questions answered
-          </h2>
+          </motion.h2>
         </div>
         
-        <div className="mx-auto max-w-3xl">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mx-auto max-w-3xl"
+        >
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq, index) => (
               <AccordionItem 
@@ -55,16 +75,16 @@ export function FAQSection() {
                 value={`item-${index}`}
                 className="border-border"
               >
-                <AccordionTrigger className="text-left text-foreground hover:text-primary hover:no-underline">
+                <AccordionTrigger className="text-left text-foreground hover:text-foreground hover:no-underline py-6">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
+                <AccordionContent className="text-muted-foreground pb-6">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

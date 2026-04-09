@@ -1,31 +1,70 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
-import { ArrowRight, X, Check, Award, Code } from "lucide-react"
+import { ArrowRight, X, Check } from "lucide-react"
+import { motion, useInView } from "framer-motion"
+import { useRef } from "react"
+import Link from "next/link"
+import Image from "next/image"
 
 export function ComparisonSection() {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
   return (
-    <section className="py-20 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto mb-16 max-w-2xl text-center">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-3 py-1">
-            <span className="text-sm font-medium text-foreground">Why engineering matters</span>
-          </div>
-          <h2 className="mb-4 text-balance text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            The difference between designed and engineered
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            Most agencies design. We engineer. See how Industrial Engineering principles 
-            transform business outcomes.
-          </p>
+    <section ref={ref} className="py-20 lg:py-32">
+      <div className="mx-auto max-w-6xl px-6 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-2 items-center">
+          {/* Content Side */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-2xl sm:text-3xl font-normal text-foreground font-serif leading-tight mb-6">
+              A website that doesn&apos;t convert is just an expensive business card
+            </h2>
+            <p className="text-muted-foreground mb-8">
+              You are most probably investing thousands of dollars into your marketing efforts and driving traffic to your website (or you plan to), all to have your website not properly optimized to convert that traffic into buyers. Your website is likely leaking revenue and sales. There&apos;s nothing more frustrating than driving traffic to your website to have it convert at low, average numbers or not at all.
+            </p>
+            <Button asChild className="bg-foreground text-background hover:bg-foreground/90 rounded-full px-6">
+              <Link href="https://cal.com/bonny-cfb1wp" target="_blank" rel="noopener noreferrer">
+                Book A Free Call
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </motion.div>
+
+          {/* Image Side */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-muted"
+          >
+            <Image
+              src="/images/conversion.jpg"
+              alt="Website conversion optimization"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
         </div>
-        
-        <div className="grid gap-8 lg:grid-cols-2">
+
+        {/* Comparison Cards */}
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-24 grid gap-8 lg:grid-cols-2"
+        >
           {/* Without IE */}
-          <div className="rounded-2xl border border-border bg-card p-8">
+          <div className="rounded-xl border border-border bg-background p-8">
             <div className="mb-6 flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-red-500/20">
-                <X className="h-4 w-4 text-red-400" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-full border border-border">
+                <X className="h-4 w-4 text-muted-foreground" />
               </div>
-              <h3 className="text-lg font-semibold text-foreground">Traditional Approach</h3>
+              <h3 className="font-semibold text-foreground">Traditional Approach</h3>
             </div>
             <ul className="space-y-4">
               <ComparisonItem negative label="Weeks of back-and-forth on compliance" />
@@ -37,12 +76,12 @@ export function ComparisonSection() {
           </div>
           
           {/* With IE */}
-          <div className="rounded-2xl border border-primary/50 bg-card p-8">
+          <div className="rounded-xl border border-foreground bg-background p-8">
             <div className="mb-6 flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20">
-                <Check className="h-4 w-4 text-primary" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-foreground">
+                <Check className="h-4 w-4 text-background" />
               </div>
-              <h3 className="text-lg font-semibold text-foreground">The Meresimplicity Way</h3>
+              <h3 className="font-semibold text-foreground">The Meresimplicity Way</h3>
             </div>
             <ul className="space-y-4">
               <ComparisonItem label="Same-day CIPC registration & compliance" />
@@ -52,26 +91,7 @@ export function ComparisonSection() {
               <ComparisonItem label="Fully integrated, automated systems" />
             </ul>
           </div>
-        </div>
-        
-        <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-            Start your transformation
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
-        
-        {/* Trust badges */}
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary/50 px-4 py-2 text-sm font-medium text-muted-foreground">
-            <Code className="h-4 w-4" />
-            Python Certified
-          </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary/50 px-4 py-2 text-sm font-medium text-muted-foreground">
-            <Award className="h-4 w-4" />
-            IE Specialist
-          </span>
-        </div>
+        </motion.div>
       </div>
     </section>
   )
@@ -87,9 +107,9 @@ function ComparisonItem({
   return (
     <li className="flex items-start gap-3">
       {negative ? (
-        <X className="mt-0.5 h-5 w-5 shrink-0 text-red-400" />
+        <X className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" />
       ) : (
-        <Check className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+        <Check className="mt-0.5 h-5 w-5 shrink-0 text-foreground" />
       )}
       <span className={negative ? "text-muted-foreground" : "text-foreground"}>{label}</span>
     </li>

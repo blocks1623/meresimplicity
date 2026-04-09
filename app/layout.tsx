@@ -1,10 +1,14 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Caveat } from 'next/font/google'
+import { DM_Sans, DM_Serif_Display, Caveat } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans" });
+const dmSerifDisplay = DM_Serif_Display({ 
+  weight: "400",
+  subsets: ["latin"], 
+  variable: "--font-dm-serif" 
+});
 const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat" });
 
 export const metadata: Metadata = {
@@ -37,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans antialiased ${caveat.variable}`}>
+      <body className={`font-sans antialiased ${dmSans.variable} ${dmSerifDisplay.variable} ${caveat.variable}`}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
